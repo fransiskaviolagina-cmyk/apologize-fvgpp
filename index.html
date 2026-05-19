@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berapa Kali Kita Akan Saling Memaafkan? 🥺</title>
+    <!-- Google Fonts untuk font yang lebih estetik -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 untuk pop-up pesan yang cantik -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif; 
+        }
+        body {
+            background-image: url('viora.jpg'); /* Pastikan file fotonya ada di GitHub juga */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* ------------------------------------------- */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        .card img {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+        #typing-text {
+            font-size: 16px;
+            color: #2f3640;
+            font-weight: 600;
+            min-height: 72px;
+            line-height: 1.6;
+        }
+        .btn-wrap {
+            margin-top: 30px;
+            position: relative;
+            height: 60px;
+        }
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            position: absolute;
+            transition: transform 0.1s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        #btn-ya {
+            background: linear-gradient(135deg, #4cd137, #44bd32);
+            color: white;
+            left: 10%;
+        }
+        #btn-ga {
+            background: linear-gradient(135deg, #e84118, #c23616);
+            color: white;
+            right: 10%;
+        }
+        /* Style untuk efek hujan hati */
+        .heart {
+            position: fixed;
+            top: -10vh;
+            font-size: 20px;
+            animation: fall 3s linear forwards;
+            opacity: 0.8;
+            z-index: 1;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Audio Latar Belakang - Pamungkas -->
+<audio id="bg-music" loop>
+    <source src="https://files.catbox.moe/kivl8n.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="main-card" onclick="playMusicOnce()">
+    <!-- GIF Lucu saat awal dibuka -->
+    <img id="gif" src="https://media.tenor.com/0v8XfT9Of7oAAAAi/mochi-peach.gif" alt="Cute GIF">
+    
+    <!-- Teks efek mengetik -->
+    <div id="typing-text"></div>
+    
+    <div class="btn-wrap" id="tombol-area" style="display:none;">
+        <button id="btn-ya" onclick="dimaafkan()">Iya, Maaf</button>
+        <button id="btn-ga" onmouseover="kabur()" onclick="kabur()">Nggak!</button>
+    </div>
+</div>
+
+<script>
+    /* ================= GANTI DATA DI BAWAH INI Sesuai Keinginanmu ================= */
+    const waNumber = "6289649474296"; // 
+    const pesanMintaMaaf = "Seperti katanya Pamungkas... 'Berapa kali kita akan saling memaafkan?'. Sebanyak apa pun itu, aku harap kali ini kamu masih mau maafin kebodohanku ya? Aku sayang banget sama kamu 🥺❤️";
+    /* ============================================================================== */
+    
+    let i = 0;
+    let musicStarted = false;
+
+    // Fungsi putar musik saat layar pertama kali disentuh/klik
+    function playMusicOnce() {
+        if (!musicStarted) {
+            document.getElementById('bg-music').play().catch(e => console.log("Audio play blocked"));
+            musicStarted = true;
+        }
+    }
+
+    // Efek Mengetik Otomatis
+    function typeWriter() {
+        if (i < pesanMintaMaaf.length) {
+            document.getElementById("typing-text").innerHTML += pesanMintaMaaf.charAt(i);
+            i++;
+            setTimeout(typeWriter, 55); // Kecepatan mengetik (dalam milidetik)
+        } else {
+            // Tampilkan tombol setelah teks selesai diketik
+            document.getElementById("tombol-area").style.display = "block";
+        }
+    }
+
+    // Mulai ketik otomatis setelah popup pembuka diklik
+    window.onload = function() {
+        Swal.fire({
+            title: 'Halo Sayang... ❤️',
+            text: 'Ada pesan penting buat kamu, klik tombol di bawah ya!',
+            icon: 'info',
+            confirmButtonText: 'Buka Pesan',
+            confirmButtonColor: '#ff7675'
+        }).then((result) => {
+            playMusicOnce();
+            typeWriter();
+        });
+    };
+
+    // Fungsi Tombol "Nggak!" Menghindar
+    function kabur() {
+        playMusicOnce();
+        const btnGa = document.getElementById('btn-ga');
+        
+        // Acak posisi tombol di sekitar area card agar tidak bisa diklik
+        const randomX = Math.floor(Math.random() * 220) - 110;
+        const randomY = Math.floor(Math.random() * 160) - 80;
+        
+        btnGa.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    // Fungsi Jika Tombol "Iya, Maaf" Diklik
+    function dimaafkan() {
+        // Ganti GIF jadi ekspresi bahagia
+        document.getElementById('gif').src = "https://media.tenor.com/g0_Xf7X-m_IAAAAi/mochi-peach.gif";
+        document.getElementById('typing-text').innerHTML = "Yeaaay! Makasih banyak yaa udah dimaafin! Kamu emang yang terbaik. Sayang kamu polll! 🥰❤️";
+        document.getElementById('tombol-area').style.display = "none";
+        
+        // Jalankan efek hujan hati berkelanjutan
+        setInterval(buatHati, 150);
+
+        // Munculkan popup sukses menuju WhatsApp
+        setTimeout(() => {
+            Swal.fire({
+                title: 'Janji Gak Nakal Lagi 🤭',
+                text: 'Sekarang kabarin aku lewat WhatsApp ya!',
+                icon: 'success',
+                confirmButtonText: 'Kirim Chat ke Aku',
+                confirmButtonColor: '#4cd137'
+            }).then(() => {
+                window.location.href = `https://wa.me/${waNumber}?text=Iya%20udah%20aku%20maafin%20kok,%20jangan%20diulangin%20lagi%20ya!%20❤️`;
+            });
+        }, 4000);
+    }
+
+    // Fungsi Efek Hujan Hati (Emoji Drop)
+    function buatHati() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        
+        const emojis = ['❤️', '💖', '🥰', '🌸', '✨', '💝'];
+        heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 2 + 2 + "s";
+        
+        document.body.appendChild(heart);
+        
+        // Bersihkan elemen lama agar browser tidak lag
+        setTimeout(() => {
+            heart.remove();
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>
