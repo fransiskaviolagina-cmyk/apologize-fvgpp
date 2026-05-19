@@ -104,11 +104,11 @@
 
 <div class="card" id="main-card" onclick="playMusicOnce()">
     <!-- GIF Lucu saat awal dibuka -->
-    <img id="gif" src="https://files.catbox.moe/kix03g.png" alt="Heart Illustration">
+    <img id="gif" src="hati.png" alt="Heart Illustration">
     <div id="typing-text"></div>
     
     <div class="btn-wrap" id="tombol-area" style="display:none;">
-        <button id="btn-ya" onclick="dimaafkan()">Iya, Maaf</button>
+        <button id="btn-ya" onclick="dimaafkan()">Iya, Dimaafin</button>
         <button id="btn-ga" onmouseover="kabur()" onclick="kabur()">Nggak!</button>
     </div>
 </div>
@@ -176,10 +176,10 @@
         btnGa.style.transform = `translate(${randomX}px, ${randomY}px)`;
     }
 
-    // Fungsi Jika Tombol "Iya, Maaf" Diklik
+    // Fungsi Jika Tombol "Iya, Dimaafin" Diklik
     function dimaafkan() {
         // Ganti GIF jadi ekspresi bahagia
-        document.getElementById('gif').src = "https://media.tenor.com/g0_Xf7X-m_IAAAAi/mochi-peach.gif";
+        document.getElementById('gif').src = "hati.png";
         document.getElementById('typing-text').innerHTML = "Yeaaay! Makasih banyak yaa udah dimaafin! Kamu emang yang terbaik. Sayang kamu polll! 🥰❤️";
         document.getElementById('tombol-area').style.display = "none";
         
